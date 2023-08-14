@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
@@ -11,6 +11,8 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", router);
+app.use(express.static("dist"));
+
 
 const contactEmail = nodemailer.createTransport({
   service: 'gmail',
