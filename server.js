@@ -1,22 +1,22 @@
-import express from "express";
+const dotenv = require('dotenv').config();
+const express = require("express");
 const router = express.Router();
-import cors from "cors";
-import nodemailer from "nodemailer";
-
+const nodemailer = require("nodemailer");
+const PORT = process.env.PORT || 3500;
 // server used to send send emails
 
 
 const app = express();
-app.use(cors());
+
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", router);
-app.listen(5000, () => console.log("Server Running on 5000"));
 
 const contactEmail = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: "jagadeeshyt11@gmail.com",
-    pass: "eljgpvzhsouwgdgp"
+    user: process.env.USER,
+    pass: process.env.PASS,
   },
 });
 
@@ -30,7 +30,7 @@ contactEmail.verify((error) => {
 
 
 
-router.post("/contact", (req, res) => {
+router.post("/api/contact", (req, res) => {
   const name = req.body.firstName + req.body.lastName;
   const email = req.body.email;
   const message = req.body.message;
@@ -59,3 +59,6 @@ router.post("/contact", (req, res) => {
     }
   });
 });
+
+
+app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`));
