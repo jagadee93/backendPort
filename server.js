@@ -34,11 +34,9 @@ contactEmail.verify((error) => {
 
 
 router.post("/api/contact", (req, res) => {
-  const name = req.body.firstName + req.body.lastName;
-  const email = req.body.email;
-  const message = req.body.message;
-  const phone = req.body.phone;
-  console.log(phone)
+  const name = req.body.Name ? req.body.Name : "Unknown";
+  const email = req.body.email ? req.body.email : "Unknown";
+  const message = req.body.message ? req.body.message : "Unknown";
   const mail = {
     from: name,
     to: "********@gmail.com",
@@ -47,7 +45,6 @@ router.post("/api/contact", (req, res) => {
     <h2 style="text-align: center; color: #007bff; margin-top: 0;">Contact Form Submission</h2>
     <p style="font-size: 18px; margin-bottom: 10px;">Name: ${name}</p>
     <p style="font-size: 18px; margin-bottom: 10px;">Email: ${email}</p>
-    <p style="font-size: 18px; margin-bottom: 10px;">Phone: ${phone}</p>
     <p style="font-size: 18px; margin-bottom: 20px;">Message: ${message}</p>
     <hr style="border: none; border-top: 2px solid #007bff; margin-top: 30px; margin-bottom: 30px;">
     <p style="text-align: center; font-size: 16px; color: #888;">This message was sent from the portfolio website.</p>
